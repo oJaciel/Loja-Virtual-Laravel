@@ -6,7 +6,7 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>Bem vindo ao login</h1>
+    <h1>Bem vindo ao login </h1>
 
     <ul>
         @foreach ($users as $user)
