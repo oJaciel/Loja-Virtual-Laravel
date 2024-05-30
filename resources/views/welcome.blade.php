@@ -9,5 +9,6 @@
     <p>Bem vindo</p>
 
     <a href="{{ url('login') }}">Ir para login</a>
+    <a href="{{ url('register') }}">Cadastre-se</a>
 </body>
 </html>

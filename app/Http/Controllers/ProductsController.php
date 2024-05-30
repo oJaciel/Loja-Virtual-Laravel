@@ -30,6 +30,15 @@ class ProductsController extends Controller
     //será um POST com os dados
     public function store(Request $request)
     {
+        
+        //Criando validações para os dados preenchidos pelo usuário
+        $request->validate([
+            'name' => 'required|min:2|max:30',
+            'description' => 'max:200',
+            'price' => 'required|numeric|gt:0',
+            'quantity' => 'required|numeric'
+        ]);
+        
         //não esquecer import do Product model.
         Product::create([
             'name' => $request->name,

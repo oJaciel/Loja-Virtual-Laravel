@@ -6,6 +6,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'welcome');
 
+Route::view('/dashboard', 'dashboard');
+
 //Route do index - products
 Route::get('/products', [ProductsController::class, 'index']);
 
