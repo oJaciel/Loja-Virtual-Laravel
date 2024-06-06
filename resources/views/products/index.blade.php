@@ -29,6 +29,7 @@
 
     </ul>
 
+    <a href="{{ url('/dashboard') }}">Voltar</a>
 
 </body>
 

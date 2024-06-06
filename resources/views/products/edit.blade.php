@@ -1,89 +1,58 @@
-<!DOCTYPE html>
-<html lang="en">
+<x-app-layout>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Editar Produto</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-</head>
 
-<body style="background-color: #e2e2e2;">
 
-    <div class="container mt-2">
-        <div class="col">
-            <div class="row">
+    <div class="px-6 mx-auto max-w-7xl">
 
-                <div class="card">
+        <h2>Edição de Produto</h2>
 
-                    <div class="card-header">
-                        <h2>Edição de Produto</h2>
-                    </div>
+        <form action="{{ url('products/update') }}" method="POST">
+            @csrf
+            <!-- campo oculto passando o ID como parâmetro no request -->
+            <input type="hidden" name="id" value="{{ $product['id'] }}">
 
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col">
-                                @if ($errors->any())
-                                <div class="alert alert-danger">
-                                    <strong>Problemas com seus dados</strong>
-                                    <br>
-                                    @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                    @endforeach
-                                </div>
-                                @endif
-                            </div>
-                        </div>
-
-                        <form action="{{ url('products/update') }}" method="POST">
-                            @csrf
-                            <!-- campo oculto passando o ID como parâmetro no request -->
-                            <input type="hidden" name="id" value="{{ $product['id'] }}">
-                    
-                            <strong>Nome:</strong>
-                            <input class="form-control" name="name" type="text" value="{{ $product['name'] }}" />
-                    
-                            <strong>Descrição:</strong>
-                            <input class="form-control" name="description" type="textarea" value="{{$product['description'] }}" />
-                    
-                            <strong>Quantidade:</strong>
-                            <input class="form-control" name="quantity" type="number" value="{{ $product['quantity']}}" />
-                    
-                            <strong>Preço:</strong>
-                            <input class="form-control" name="price" type="number" value="{{ $product['price'] }}" />
-                    
-                            <strong>Tipo:</strong>
-                            <select class="form-control" name="type_id">
-                                @foreach ($types as $type)
-                                <option {{ $product->type_id == $type->id ? "selected" : "" }} value=" {{ $type['id'] }} "> {{ $type['name'] }} </option>
-                                @endforeach 
-                            </select>
-                            
-                            <div class="row mt-3">
-                                <div class="col">
-                                    <a class="btn btn-secondary" href=" {{ url('/products') }} ">Voltar</a>
-                                </div>
-                                <div class="col text-end">
-                                    <button class="btn btn-primary" type="submit">Salvar</button>
-                                </div>
-                            </div>
-                            
-                        </form>
-                        
-                        
-
-                    </div>
-
-                </div>
-
+            <div>
+                <x-input-label for="name" :value="__('Nome')" />
+                <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="$product->name" />
+                <x-input-error :messages="$errors->get('name')" class="mt-2" />
             </div>
-        </div>
-        
+
+            <div>
+                <x-input-label for="description" :value="__('Descrição')" />
+                <x-text-input id="description" class="block mt-1 w-full" type="text" name="description" :value="$product->description" />
+                <x-input-error :messages="$errors->get('description')" class="mt-2" />
+            </div>
+
+            <div>
+                <x-input-label for="quantity" :value="__('Quantidade')" />
+                <x-text-input id="quantity" class="block mt-1 w-full" type="text" name="quantity" :value="$product->quantity" />
+                <x-input-error :messages="$errors->get('quantity')" class="mt-2" />
+            </div>
+
+            <div>
+                <x-input-label for="price" :value="__('Preço')" />
+                <x-text-input id="price" class="block mt-1 w-full" type="text" name="price" :value="$product->price" />
+                <x-input-error :messages="$errors->get('price')" class="mt-2" />
+            </div>
+
+            <strong>Tipo:</strong>
+            <select class="form-control" name="type_id">
+                @foreach ($types as $type)
+                <option {{ $product->type_id == $type->id ? "selected" : "" }} value=" {{ $type['id'] }} "> {{ $type['name'] }} </option>
+                @endforeach
+            </select>
+
+            <div class="row mt-3">
+                <div class="col">
+                    <a class="btn btn-secondary" href=" {{ url('/products') }} ">Voltar</a>
+                </div>
+                <div class="col text-end">
+                    <button class="btn btn-primary" type="submit">Salvar</button>
+                </div>
+            </div>
+
+        </form>
+
     </div>
 
-    
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-</body>
-
-</html>
+</x-app-layout>
