@@ -1,62 +1,59 @@
-@extends('crud_template')
+<x-app-layout>
 
-@section('content')
+    <div class="px-6 mx-auto max-w-7xl">
+        <x-slot name="header">
+            <h2 class="font-semibold text-2xl text-gray-800">
+                Cadastro de Produto
+            </h2>
+        </x-slot>
 
-<div class="card">
+        <x-content-div>
 
-    <div class="card-header">
-        <h2>Cadastro de Produto</h2>
-    </div>
 
-    <div class="card-body">
-        <div class="row">
-            <div class="col">
-                @if ($errors->any())
-                <div class="alert alert-danger">
-                    <strong>Problemas com seus dados</strong>
-                    <br>
-                    @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
+            <form class="mt-4" action="{{ url('products/new') }}" method="POST">
+                @csrf
+
+                <x-input-label for="name" :value="__('Nome')" />
+                <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" />
+                <x-input-error :messages="$errors->get('name')" class="mt-2" />
+
+                <x-input-label for="description" :value="__('Descrição')" />
+                <x-text-input id="description" class="block mt-1 w-full" type="text" name="description"
+                    :value="old('description')" />
+                <x-input-error :messages="$errors->get('description')" class="mt-2" />
+
+                <x-input-label for="quantity" :value="__('Quantidade')" />
+                <x-text-input id="quantity" class="block mt-1 w-full" type="number" name="quantity"
+                    :value="old('quantity')" />
+                <x-input-error :messages="$errors->get('quantity')" class="mt-2" />
+
+                <x-input-label for="price" :value="__('Preço')" />
+                <x-text-input id="price" class="block mt-1 w-full" type="number" name="price"
+                    :value="old('price')" />
+                <x-input-error :messages="$errors->get('price')" class="mt-2" />
+
+                <label for="type" class="block font-medium text-sm text-gray-700 dark:text-gray-300">Tipo</label>
+                <select id="type" name="type_id"
+                    class="border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm">
+                    @foreach ($types as $type)
+                        <option value="{{ $type['id'] }}">{{ $type['name'] }}</option>
                     @endforeach
-                </div>
-                @endif
-            </div>
-        </div>
+                </select>
 
-        <form action="{{ url('products/new') }}" method="POST">
-            @csrf
-            <strong>Nome:</strong>
-            <input class="form-control" name="name" type="text" />
-
-            <strong>Descrição:</strong>
-            <input class="form-control" name="description" type="textarea" />
-
-            <strong>Quantidade:</strong>
-            <input class="form-control" name="quantity" type="number" />
-
-            <strong>Preço:</strong>
-            <input class="form-control" name="price" type="number" />
-
-            <strong>Tipo:</strong>
-            <select class="form-control" name="type_id">
-                @foreach ($types as $type)
-                <option value=" {{ $type['id'] }} "> {{ $type['name'] }} </option>
-                @endforeach
-            </select>
-
-            <div class="row mt-3">
-                <div class="col">
-                    <a class="btn btn-secondary" href=" {{ url('/products') }} ">Voltar</a>
+                <div class="grid grid-cols-2 gap-4 mt-3">
+                    <button class="text-start">
+                        <a class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded text-center"
+                            href="{{ url('/products') }}">Voltar</a>
+                    </button>
+                    <div class="text-end">
+                        <button class="text-end bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                            type="submit">Salvar</button>
+                    </div>
                 </div>
 
-                <div class="col text-end">
-                    <button class="btn btn-primary" type="submit">Salvar</button>
-                </div>
+            </form>
+        </x-content-div>
 
-            </div>
-
-
-        </form>
     </div>
 
-</div>
+</x-app-layout>

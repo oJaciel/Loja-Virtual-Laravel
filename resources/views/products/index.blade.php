@@ -1,36 +1,53 @@
-<!DOCTYPE html>
-<html lang="pt-br">
+<x-app-layout>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Produtos</title>
-</head>
+    <x-slot name="header">
+        <h2 class="font-semibold text-2xl text-gray-800">
+            Lista de Produtos
+        </h2>
+    </x-slot>
 
-<body>
+    <div class="py-7">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            @if ($message = Session::get('success'))
+                <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4">
+                    <strong class="font-bold">{{ $message }}</strong>
+                </div>
+            @endif
 
-    <h3>Lista de Produtos</h3>
+            <a href="{{ url('/products/new') }}"
+                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Adicionar Produto</a>
 
-    @if ($message = Session::get('success'))
-    <p>{{ $message }}</p>
-    @endif
+            <x-content-div>
+                <table class="min-w-full divide-y">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <x-table-label :value="__('Nome')"></x-table-label>
+                            <x-table-label :value="__('Estoque (un)')"></x-table-label>
+                            <x-table-label :value="__('Preço (R$)')"></x-table-label>
+                            <x-table-label></x-table-label>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y">
+                        @foreach ($products as $product)
+                            <tr>
+                                <x-table-content>{{ $product['name'] }}</x-table-content>
+                                <x-table-content>{{ $product['quantity'] }}</x-table-content>
+                                <x-table-content>{{ $product['price'] }}</x-table-content>
+                                <td class="px-6 py-4 whitespace-nowrap space-x-2">
+                                    <a href="{{ url('/products/update', ['id' => $product->id]) }}"
+                                        class="text-indigo-600 hover:text-indigo-900">Editar</a>
+                                    <a href="{{ url('/products/delete', ['id' => $product->id]) }}"
+                                        class="text-red-600 hover:text-red-900">Deletar</a>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </x-content-div>
 
-    <a href="{{ url('/products/new') }}">Adicionar Produto</a>
+            <a href="{{ url('/dashboard') }}"
+                class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 my-4 rounded text-center">Voltar</a>
+        </div>
+    </div>
 
-    <ul>
-
-        @foreach ($products as $product)
-        <li>{{ $product['name'] }} {{ $product['price'] }}
-            <a href="{{ url('/products/update', ['id' => $product->id]) }}">Editar</a>
-            <a href="{{ url('/products/delete', ['id' => $product->id]) }}">Deletar</a>
-        </li>
-
-        @endforeach
-
-    </ul>
-
-    <a href="{{ url('/dashboard') }}">Voltar</a>
-
-</body>
-
-</html>
+</x-app-layout>
