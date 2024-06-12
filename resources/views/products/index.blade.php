@@ -9,13 +9,12 @@
     <div class="py-7">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             @if ($message = Session::get('success'))
-                <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4">
-                    <strong class="font-bold">{{ $message }}</strong>
-                </div>
+            <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4">
+                <strong class="font-bold">{{ $message }}</strong>
+            </div>
             @endif
 
-            <a href="{{ url('/products/new') }}"
-                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Adicionar Produto</a>
+            <a href="{{ url('/products/new') }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Adicionar Produto</a>
 
             <x-content-div>
                 <table class="min-w-full divide-y">
@@ -29,24 +28,26 @@
                     </thead>
                     <tbody class="divide-y">
                         @foreach ($products as $product)
-                            <tr>
-                                <x-table-content>{{ $product['name'] }}</x-table-content>
-                                <x-table-content>{{ $product['quantity'] }}</x-table-content>
-                                <x-table-content>{{ $product['price'] }}</x-table-content>
-                                <td class="px-6 py-4 whitespace-nowrap space-x-2">
-                                    <a href="{{ url('/products/update', ['id' => $product->id]) }}"
-                                        class="text-indigo-600 hover:text-indigo-900">Editar</a>
-                                    <a href="{{ url('/products/delete', ['id' => $product->id]) }}"
-                                        class="text-red-600 hover:text-red-900" onclick="return confirm('Confirmar exclusão?')">Deletar</a>
-                                </td>
-                            </tr>
+                        <tr>
+                            <x-table-content>{{ $product['name'] }}</x-table-content>
+                            <x-table-content>{{ $product['quantity'] }}</x-table-content>
+                            <x-table-content>{{ $product['price'] }}</x-table-content>
+                            <td class="px-6 py-4 whitespace-nowrap space-x-2">
+                                <x-secondary-button>
+                                    <a href="{{ url('/products/update', ['id' => $product->id]) }}">Editar</a>
+                                </x-secondary-button>
+                                <x-danger-button>
+                                    <a href="{{ url('/products/delete', ['id' => $product->id]) }}" onclick="return confirm('Confirmar exclusão?')">Deletar</a>
+                                </x-danger-button>
+
+                            </td>
+                        </tr>
                         @endforeach
                     </tbody>
                 </table>
             </x-content-div>
 
-            <a href="{{ url('/dashboard') }}"
-                class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 my-4 rounded text-center">Voltar</a>
+            <a href="{{ url('/dashboard') }}" class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 my-4 rounded text-center">Voltar</a>
         </div>
     </div>
 
