@@ -14,7 +14,9 @@
             </div>
             @endif
 
-            <a href="{{ url('/types/new') }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Adicionar Tipo</a>
+            <x-primary-button>
+                <a href="{{ url('/types/new') }}">Adicionar Tipo</a>
+            </x-primary-button>
 
             <x-content-div>
                 <table class="min-w-full divide-y">
@@ -43,7 +45,9 @@
                 </table>
             </x-content-div>
 
-            <a href="{{ url('/dashboard') }}" class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 my-4 rounded text-center">Voltar</a>
+            <x-secondary-button>
+                <a href="{{ url('/dashboard') }}">Voltar</a>
+            </x-secondary-button>
         </div>
     </div>
 

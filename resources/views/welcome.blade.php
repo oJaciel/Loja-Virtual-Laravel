@@ -31,9 +31,9 @@
             </a>
 
             <div>
-                <a class="bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg shadow-md transition duration-300 ease-in-out transform hover:scale-105 mr-2"
+                <a class="inline-flex items-center px-4 py-2 bg-blue-500 hover:bg-blue-700 border border-transparent rounded-md font-semibold text-xs text-white dark:text-gray-800 uppercase tracking-widest transition ease-in-out duration-150"
                     href="{{ url('login') }}">Ir para login</a>
-                <a class="bg-green-500 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded-lg shadow-md transition duration-300 ease-in-out transform hover:scale-105"
+                <a class="inline-flex items-center px-4 py-2 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-500 rounded-md font-semibold text-xs text-gray-700 dark:text-gray-300 uppercase tracking-widest shadow-sm hover:bg-gray-50 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 disabled:opacity-25 transition ease-in-out duration-150"
                     href="{{ url('register') }}">Cadastre-se</a>
             </div>
         </header>
@@ -45,7 +45,7 @@
 
             @foreach ($types as $type)
                 <a href="{{ route('filterProduct', $type->id) }}"
-                    class="bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-2 rounded-lg transition mr-2 text-m">{{ $type->name }}</a>
+                    class="inline-flex items-center px-4 py-2 bg-blue-500 hover:bg-blue-700 border border-transparent rounded-md font-semibold text-xs text-white dark:text-gray-800 uppercase tracking-widest transition ease-in-out duration-150">{{ $type->name }}</a>
             @endforeach
 
         </div>
