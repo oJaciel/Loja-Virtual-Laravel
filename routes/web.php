@@ -1,14 +1,18 @@
 <?php
 
+use App\Http\Controllers\IndexController;
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TypesController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+//Rotas da tela de welcome
+Route::get('/', [IndexController::class, 'index']);
 
+Route::get('/filter/{typeId}', [IndexController::class, 'filterProduct'])->name('filterProduct');
+
+
+//Rota do dashboard (do Breeze)
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
@@ -19,7 +23,7 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    //Rotas de Produto
+    //Rotas de Produto (precisa estar logado pra acessar)
     Route::get('/products', [ProductsController::class, 'index']) ->name('products');
     Route::get('/products/new', [ProductsController::class, 'create']);
     Route::post('/products/new', [ProductsController::class, 'store']);
@@ -27,7 +31,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/products/update/', [ProductsController::class, 'update']);
     Route::get('/products/delete/{id}', [ProductsController::class, 'destroy']);
 
-    //Rotas de Type
+    //Rotas de Type (precisa estar logado pra acessar)
     Route::get('/types', [TypesController::class, 'index'])->name('types');
     Route::get('/types/new', [TypesController::class, 'create']);
     Route::post('/types/new', [TypesController::class, 'store']);

@@ -34,7 +34,7 @@
                                     <a href="{{ url('/types/update', ['id' => $type->id]) }}"
                                         class="text-indigo-600 hover:text-indigo-900">Editar</a>
                                     <a href="{{ url('/types/delete', ['id' => $type->id]) }}"
-                                        class="text-red-600 hover:text-red-900">Deletar</a>
+                                        class="text-red-600 hover:text-red-900" onclick="return confirm('Confirmar exclusão?')">Deletar</a>
                                 </td>
                             </tr>
                         @endforeach
