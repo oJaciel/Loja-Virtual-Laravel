@@ -13,9 +13,10 @@ class ProductsController extends Controller
     //passando como parâmetro a consulta no banco com ::all()
     public function index()
     {
+        $products = Product::with('types')->get();
+
         return view('products.index', [
-            //Select * from products
-            'products' => Product::all()
+            'products' => $products
         ]);
     }
 
@@ -23,14 +24,13 @@ class ProductsController extends Controller
     public function create()
     {
         return view('products.create', ['types' => Type::all()]);
-        
     }
 
     //função chamada no submit do form..
     //será um POST com os dados
     public function store(Request $request)
     {
-        
+
         //Criando validações para os dados preenchidos pelo usuário
         $request->validate([
             'name' => 'required|min:2|max:30',
@@ -38,7 +38,7 @@ class ProductsController extends Controller
             'price' => 'required|numeric|gt:0',
             'quantity' => 'required|numeric'
         ]);
-        
+
         //não esquecer import do Product model.
         Product::create([
             'name' => $request->name,
@@ -91,5 +91,4 @@ class ProductsController extends Controller
         $product->delete();
         return redirect('/products')->with('success', 'Produto excluído com sucesso!');
     }
-
 }

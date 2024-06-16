@@ -25,15 +25,17 @@
                             <x-table-label :value="__('Nome')"></x-table-label>
                             <x-table-label :value="__('Estoque (un)')"></x-table-label>
                             <x-table-label :value="__('Preço (R$)')"></x-table-label>
+                            <x-table-label :value="__('Tipo')"></x-table-label>
                             <x-table-label></x-table-label>
                         </tr>
                     </thead>
                     <tbody class="divide-y">
                         @foreach ($products as $product)
                         <tr>
-                            <x-table-content>{{ $product['name'] }}</x-table-content>
-                            <x-table-content>{{ $product['quantity'] }}</x-table-content>
-                            <x-table-content>{{ $product['price'] }}</x-table-content>
+                            <x-table-content>{{ $product->name }}</x-table-content>
+                            <x-table-content>{{ $product->quantity }}</x-table-content>
+                            <x-table-content>{{ $product->price }}</x-table-content>
+                            <x-table-content>{{ $product->types->name }}</x-table-content>
                             <td class="px-6 py-4 whitespace-nowrap space-x-2">
                                 <x-secondary-button>
                                     <a href="{{ url('/products/update', ['id' => $product->id]) }}">Editar</a>
@@ -41,13 +43,14 @@
                                 <x-danger-button>
                                     <a href="{{ url('/products/delete', ['id' => $product->id]) }}" onclick="return confirm('Confirmar exclusão?')">Deletar</a>
                                 </x-danger-button>
-
                             </td>
                         </tr>
                         @endforeach
                     </tbody>
                 </table>
             </x-content-div>
+            
+            
 
             <x-secondary-button>
                 <a href="{{ url('/dashboard') }}">Voltar</a>
